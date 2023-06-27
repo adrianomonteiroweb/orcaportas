@@ -1,15 +1,27 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen: React.FC = () => {
+  const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+
+  const handleLoginPress = () => navigation.navigate('BudgetForm');
+  
   return (
     <View style={styles.container}>
       <Image
         source={require('../../assets/logo.png')}
         style={styles.logo}
       />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        placeholder='Email'
+        style={styles.input}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
+        <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -34,9 +46,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonText: {
+    borderRadius: 10,
     color: '#fff',
-    fontSize: 18,
+    fontSize: 12,
   },
+  input: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 40,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    textAlign: "center",
+    width: '50%',
+  }
 });
 
 export default HomeScreen;
